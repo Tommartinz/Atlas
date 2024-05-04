@@ -8,21 +8,25 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.tommartin.atlas.data.model.BasicCountry
-import com.tommartin.atlas.data.model.submodels.CountryName
-import com.tommartin.atlas.data.model.submodels.Flags
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tommartin.atlas.ui.AtlasViewModel
 import com.tommartin.atlas.ui.components.CountryCard
 import com.tommartin.atlas.ui.components.SearchBarComponent
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: AtlasViewModel = viewModel()) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(uiState) {
+        viewModel.getAllCountries()
+    }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -40,8 +44,10 @@ fun HomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                items(50) {
-                    CountryCard()
+                uiState.value.basicCountry?.size?.let { list ->
+                    items(list) {
+                        CountryCard(uiState.value.basicCountry!![it])
+                    }
                 }
             }
         }

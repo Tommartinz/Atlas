@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 data class BasicCountry(
     val name: CountryName,
     val flags: Flags,
-    val region: String,
+    val population: Int,
 )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,10 +24,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.tommartin.atlas.data.model.BasicCountry
 
 @Composable
-fun CountryCard() {
+fun CountryCard(basicCountry: BasicCountry) {
     OutlinedCard(
         onClick = { /*TODO*/ },
         modifier = Modifier
@@ -36,26 +39,31 @@ fun CountryCard() {
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            AsyncImage(
-                model = ImageRequest
-                    .Builder(LocalContext.current)
-                    .data("https://flagcdn.com/w320/al.png")
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Column(modifier = Modifier.fillMaxHeight(0.5f).fillMaxWidth()) {
+                AsyncImage(
+                    model = ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(basicCountry.flags.svg)
+                        .decoderFactory(SvgDecoder.Factory())
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
             Spacer(modifier = Modifier.height(4.dp))
             Column(
                 verticalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 8.dp, bottom = 18.dp)
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
             ) {
                 Text(
-                    text = "Albania",
-                    style = MaterialTheme.typography.titleLarge
+                    text = basicCountry.name.common,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 2
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -67,7 +75,7 @@ fun CountryCard() {
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        text = NumberFormat.getNumberInstance().format(3200000),
+                        text = NumberFormat.getNumberInstance().format(basicCountry.population),
                         style = MaterialTheme.typography.labelMedium
                     )
                 }

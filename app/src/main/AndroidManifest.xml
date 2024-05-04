@@ -18,6 +18,7 @@
             android:resizeableActivity="true"
             android:hardwareAccelerated="true"
             android:appCategory="maps"
+            android:name=".Atlas"
             tools:targetApi="34">
         <activity
                 android:name=".MainActivity"
