@@ -16,13 +16,16 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.tommartin.atlas.ui.AtlasViewModel
 import com.tommartin.atlas.ui.components.CountryCard
 import com.tommartin.atlas.ui.components.SearchBarComponent
 
 @Composable
-fun HomeScreen(viewModel: AtlasViewModel = viewModel()) {
+fun HomeScreen(
+    viewModel: AtlasViewModel,
+    navHostController: NavHostController
+) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(uiState) {
         viewModel.getAllCountries()
@@ -46,7 +49,7 @@ fun HomeScreen(viewModel: AtlasViewModel = viewModel()) {
             ) {
                 uiState.value.basicCountry?.size?.let { list ->
                     items(list) {
-                        CountryCard(uiState.value.basicCountry!![it])
+                        CountryCard(uiState.value.basicCountry!![it], navHostController)
                     }
                 }
             }

@@ -23,15 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.tommartin.atlas.data.model.BasicCountry
 
 @Composable
-fun CountryCard(basicCountry: BasicCountry) {
+fun CountryCard(
+    basicCountry: BasicCountry,
+    navHostController: NavHostController
+) {
     OutlinedCard(
-        onClick = { /*TODO*/ },
+        onClick = { navHostController.navigate("detail_screen/${basicCountry.name.common}") },
         modifier = Modifier
             .height(200.dp)
             .padding(horizontal = 16.dp)
@@ -61,7 +65,7 @@ fun CountryCard(basicCountry: BasicCountry) {
                     .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
             ) {
                 Text(
-                    text = basicCountry.name.common,
+                    text = if (basicCountry.name.common == "Falkland Islands") "Islas Malvinas" else basicCountry.name.common,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2
                 )
