@@ -1,5 +1,6 @@
 package com.tommartin.atlas.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.MoreVert
@@ -32,6 +33,7 @@ fun SearchBarComponent() {
         modifier = Modifier.semantics { traversalIndex = -1f },
         inputField = {
             SearchBarDefaults.InputField(
+                modifier = Modifier.fillMaxWidth(0.9f),
                 query = query,
                 onQueryChange = { query = it },
                 onSearch = { expanded = false },

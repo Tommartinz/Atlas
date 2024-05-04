@@ -15,6 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.tommartin.atlas.data.model.BasicCountry
+import com.tommartin.atlas.data.model.submodels.CountryName
+import com.tommartin.atlas.data.model.submodels.Flags
+import com.tommartin.atlas.ui.components.CountryCard
 import com.tommartin.atlas.ui.components.SearchBarComponent
 
 @Composable
@@ -31,13 +35,13 @@ fun HomeScreen() {
         ) {
             SearchBarComponent()
             LazyVerticalGrid(
+                contentPadding = PaddingValues(top = 112.dp),
                 columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(start = 16.dp, top = 104.dp, end = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 items(50) {
-                    Text(text = "This is item number $it")
+                    CountryCard()
                 }
             }
         }
