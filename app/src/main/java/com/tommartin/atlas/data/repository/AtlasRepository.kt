@@ -7,7 +7,7 @@ import io.ktor.client.statement.HttpResponse
 
 class AtlasRepository: FetchMethods {
     override suspend fun queryAllCountries(client: HttpClient): HttpResponse {
-        return client.get(Endpoints.ALLCOUNTRIES.url)
+        return client.get("https://restcountries.com/v3.1/all")
     }
 
     override suspend fun querySpecificCountry(client: HttpClient, identifier: String): HttpResponse {
