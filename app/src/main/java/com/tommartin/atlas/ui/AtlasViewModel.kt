@@ -2,6 +2,7 @@ package com.tommartin.atlas.ui
 
 import androidx.lifecycle.ViewModel
 import com.tommartin.atlas.data.model.BasicCountry
+import com.tommartin.atlas.data.model.DetailedCountry
 import com.tommartin.atlas.data.repository.AtlasRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.client.HttpClient
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 data class UIState(
-    val basicCountry: List<BasicCountry>? = null
+    val basicCountry: List<BasicCountry>? = null,
+    val detailedCountry: List<DetailedCountry>? = null,
 )
 
 @HiltViewModel
@@ -26,6 +28,14 @@ class AtlasViewModel @Inject constructor(private val client: HttpClient) : ViewM
         _uiState.update { currentState ->
             currentState.copy(
                 basicCountry = AtlasRepository().queryAllCountries(client).body()
+            )
+        }
+    }
+
+    suspend fun getDetailedCountry(identifier: String) {
+        _uiState.update { currentCountry ->
+            currentCountry.copy(
+                detailedCountry = AtlasRepository().querySpecificCountry(client, identifier).body()
             )
         }
     }

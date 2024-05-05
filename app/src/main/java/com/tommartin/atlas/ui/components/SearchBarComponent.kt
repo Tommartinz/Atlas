@@ -1,6 +1,7 @@
 package com.tommartin.atlas.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.MoreVert
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,10 +32,10 @@ fun SearchBarComponent() {
         mutableStateOf(false)
     }
     SearchBar(
-        modifier = Modifier.semantics { traversalIndex = -1f },
+        modifier = Modifier.semantics { traversalIndex = -1f }.padding(horizontal = 12.dp),
         inputField = {
             SearchBarDefaults.InputField(
-                modifier = Modifier.fillMaxWidth(0.9f),
+                modifier = Modifier.fillMaxWidth(),
                 query = query,
                 onQueryChange = { query = it },
                 onSearch = { expanded = false },

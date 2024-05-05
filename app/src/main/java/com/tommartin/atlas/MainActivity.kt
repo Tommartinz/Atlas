@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.tommartin.atlas.data.model.DetailedCountry
 import com.tommartin.atlas.ui.AtlasViewModel
 import com.tommartin.atlas.ui.screens.DetailScreen
 import com.tommartin.atlas.ui.screens.HomeScreen
@@ -27,15 +28,16 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController, "home_screen") {
                     composable(
                         "home_screen",
-                        listOf(navArgument("name") { NavType.StringType })
+                        listOf(navArgument("country") { NavType.StringType })
                     ) {
                         val atlasViewModel = hiltViewModel<AtlasViewModel>()
                         HomeScreen(viewModel = atlasViewModel, navController)
                     }
                     composable(
-                        "detail_screen/{name}"
+                        "detail_screen/{country}"
                     ) { backStackEntry ->
-                        backStackEntry.arguments?.getString("name")?.let { DetailScreen(it) }
+                        val atlasViewModel = hiltViewModel<AtlasViewModel>()
+                        backStackEntry.arguments?.getString("country")?.let { DetailScreen(it, atlasViewModel, navController) }
                     }
                 }
             }

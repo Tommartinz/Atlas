@@ -9,4 +9,8 @@ class AtlasRepository: FetchMethods {
     override suspend fun queryAllCountries(client: HttpClient): HttpResponse {
         return client.get(Endpoints.ALLCOUNTRIES.url)
     }
+
+    override suspend fun querySpecificCountry(client: HttpClient, identifier: String): HttpResponse {
+        return client.get("https://restcountries.com/v3.1/name/${identifier}")
+    }
 }

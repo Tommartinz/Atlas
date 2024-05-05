@@ -35,10 +35,10 @@ fun CountryCard(
     navHostController: NavHostController
 ) {
     OutlinedCard(
-        onClick = { navHostController.navigate("detail_screen/${basicCountry.name.common}") },
+        onClick = { navHostController.navigate("detail_screen/${basicCountry.name.official}") },
         modifier = Modifier
-            .height(200.dp)
-            .padding(horizontal = 16.dp)
+            .height(224.dp)
+            .padding(horizontal = 12.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -66,7 +66,7 @@ fun CountryCard(
             ) {
                 Text(
                     text = if (basicCountry.name.common == "Falkland Islands") "Islas Malvinas" else basicCountry.name.common,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge,
                     maxLines = 2
                 )
                 Row(
@@ -80,7 +80,7 @@ fun CountryCard(
                     )
                     Text(
                         text = NumberFormat.getNumberInstance().format(basicCountry.population),
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.labelLarge
                     )
                 }
             }
