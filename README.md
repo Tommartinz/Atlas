@@ -26,4 +26,4 @@ The idea of this project was to use the latest technologies in android Dev, bein
 
 ## License
 
-[MIT] (https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE.txt)
