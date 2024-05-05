@@ -4,10 +4,10 @@ Atlas is an android application where you can see all the countries in the world
 
 ## Installation
 
-Clone the project in Android Studio by using the project repository
+Clone the project by using Android Studio, or by using the terminal with the following command
 
 ```bash
-github.com/
+git clone https://github.com/Tommartinz/Atlas.git
 ```
 
 ## About this project
