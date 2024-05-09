@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.tommartin.atlas.data.model.DetailedCountry
 import com.tommartin.atlas.ui.AtlasViewModel
 import com.tommartin.atlas.ui.screens.DetailScreen
 import com.tommartin.atlas.ui.screens.HomeScreen
