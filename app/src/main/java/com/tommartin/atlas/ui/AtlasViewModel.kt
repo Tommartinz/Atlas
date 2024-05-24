@@ -16,6 +16,8 @@ import javax.inject.Inject
 data class UIState(
     val basicCountry: List<BasicCountry>? = null,
     val detailedCountry: List<DetailedCountry>? = null,
+    val query: String = "",
+    val queryResult: List<BasicCountry>? = null
 )
 
 @HiltViewModel
@@ -25,18 +27,33 @@ class AtlasViewModel @Inject constructor(private val client: HttpClient) : ViewM
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 
     suspend fun getAllCountries() {
-        _uiState.update { currentState ->
-            currentState.copy(
-                basicCountry = AtlasRepository().queryAllCountries(client).body()
-            )
+        AtlasRepository().queryAllCountries(client).collect { response ->
+            _uiState.update { currentState ->
+                currentState.copy(
+                    basicCountry = response.body()
+                )
+            }
         }
     }
 
     suspend fun getDetailedCountry(identifier: String) {
-        _uiState.update { currentCountry ->
-            currentCountry.copy(
-                detailedCountry = AtlasRepository().querySpecificCountry(client, identifier).body()
-            )
+        AtlasRepository().querySpecificCountry(client, identifier).collect { response ->
+            _uiState.update { currentState ->
+                currentState.copy(
+                    detailedCountry = response.body()
+                )
+            }
+        }
+    }
+
+    suspend fun getCountriesByName(query: String) {
+        AtlasRepository().querySpecificCountry(client, query).collect { response ->
+            _uiState.update { currentState ->
+                currentState.copy(
+                    query = query,
+                    queryResult = response.body()
+                )
+            }
         }
     }
 }

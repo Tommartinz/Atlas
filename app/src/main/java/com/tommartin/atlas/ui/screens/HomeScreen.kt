@@ -41,7 +41,7 @@ fun HomeScreen(
                 .semantics { isTraversalGroup = true },
             contentAlignment = Alignment.TopCenter
         ) {
-            SearchBarComponent()
+            SearchBarComponent(viewModel)
             LazyVerticalGrid(
                 contentPadding = PaddingValues(top = 112.dp),
                 columns = GridCells.Fixed(2),
