@@ -26,17 +26,19 @@ class MainActivity : ComponentActivity() {
             AtlasTheme {
                 NavHost(navController, "home_screen") {
                     composable(
-                        "home_screen",
-                        listOf(navArgument("country") { NavType.StringType })
+                        route = "home_screen",
+                        arguments = listOf(navArgument("country") { NavType.StringType })
                     ) {
                         val atlasViewModel = hiltViewModel<AtlasViewModel>()
                         HomeScreen(viewModel = atlasViewModel, navController)
                     }
                     composable(
-                        "detail_screen/{country}"
+                        route = "detail_screen/{country}"
                     ) { backStackEntry ->
                         val atlasViewModel = hiltViewModel<AtlasViewModel>()
-                        backStackEntry.arguments?.getString("country")?.let { DetailScreen(it, atlasViewModel, navController) }
+                        backStackEntry.arguments?.getString("country")?.let {
+                            DetailScreen(it, atlasViewModel, navController)
+                        }
                     }
                 }
             }

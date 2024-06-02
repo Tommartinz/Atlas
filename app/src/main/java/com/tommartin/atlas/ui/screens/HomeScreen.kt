@@ -43,7 +43,7 @@ fun HomeScreen(
         ) {
             SearchBarComponent(viewModel)
             LazyVerticalGrid(
-                contentPadding = PaddingValues(top = 112.dp),
+                contentPadding = PaddingValues(top = 124.dp),
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,

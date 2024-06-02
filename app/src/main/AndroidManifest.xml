@@ -19,7 +19,7 @@
             android:hardwareAccelerated="true"
             android:appCategory="maps"
             android:name=".Atlas"
-            tools:targetApi="34">
+            tools:targetApi="tiramisu">
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
